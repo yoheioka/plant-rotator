@@ -1,6 +1,16 @@
 import RPi.GPIO as GPIO
 import time
 
+
+def set_angle(angle):
+    duty = angle / 18 + 2
+    GPIO.output(03, True)
+    pwm.ChangeDutyCycle(duty)
+    sleep(1)
+    GPIO.output(03, False)
+    pwm.ChangeDutyCycle(0)
+
+
 servoPIN = 17
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(servoPIN, GPIO.OUT)
@@ -25,19 +35,10 @@ try:
         # time.sleep(0.5)
         # p.ChangeDutyCycle(2.5)
         # time.sleep(0.5)
-        setAngle(90)
+        set_angle(90)
         time.sleep(0)
-        setAngle(90)
+        set_angle(90)
         time.sleep(0)
 except KeyboardInterrupt:
   p.stop()
   GPIO.cleanup()
-
-
-def set_angle(angle):
-    duty = angle / 18 + 2
-    GPIO.output(03, True)
-    pwm.ChangeDutyCycle(duty)
-    sleep(1)
-    GPIO.output(03, False)
-    pwm.ChangeDutyCycle(0)
