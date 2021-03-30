@@ -9,14 +9,6 @@ GPIO.setup(servoPIN, GPIO.OUT)
 p = GPIO.PWM(servoPIN, 50) # GPIO 17 for PWM with 50Hz
 p.start(2.5) # Initialization
 
-def set_angle(angle):
-    duty = angle / 18 + 2
-    GPIO.output(servoPIN, True)
-    p.ChangeDutyCycle(duty)
-    time.sleep(1)
-    GPIO.output(servoPIN, False)
-    p.ChangeDutyCycle(0)
-
 try:
     while True:
         # p.ChangeDutyCycle(5)
@@ -33,12 +25,14 @@ try:
         # time.sleep(0.5)
         # p.ChangeDutyCycle(5)
         # time.sleep(0.5)
-        # p.ChangeDutyCycle(2.5)
-        # time.sleep(0.5)
-        set_angle(90)
-        time.sleep(0)
-        set_angle(90)
-        time.sleep(0)
+        p.ChangeDutyCycle(60 / 18 + 2)
+        time.sleep(0.5)
+        p.ChangeDutyCycle(30 / 18 + 2)
+        time.sleep(0.5)
+        p.ChangeDutyCycle(60 / 18 + 2)
+        time.sleep(0.5)
+        p.ChangeDutyCycle(30 / 18 + 2)
+        time.sleep(0.5)
 except KeyboardInterrupt:
   p.stop()
   GPIO.cleanup()
