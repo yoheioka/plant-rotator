@@ -26,10 +26,10 @@ def rotate():
 
 
 def update_section():
-    with open('current_section.txt', 'r') as f:
+    with open('/home/pi/plant-rotator/current_section.txt', 'r') as f:
         num = int(f.readline())
         next = (num + 1) % 4
-    with open('current_section.txt', 'w') as f:
+    with open('/home/pi/plant-rotator/current_section.txt', 'w') as f:
         f.write('%s\n' % next)
 
 if __name__ == '__main__':
