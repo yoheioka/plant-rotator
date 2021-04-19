@@ -24,8 +24,18 @@ def save_metric(section, value):
     client.write_points([point])
 
 
+def update_section_value(sun_value):
+    with open('/home/pi/plant-rotator/section_sunlight.txt', 'r') as f:
+        starting_value = int(f.readline())
+    new_value = starting_value + max(sun_value - 265, 0)
+    # if new_value > 100000:
+    #     return
+    with open('/home/pi/plant-rotator/section_sunlight.txt', 'w') as f:
+        f.write('%s\n' % new_value)
+
+
 if __name__  == '__main__':
     section = get_section()
     sun_value = read_metric()
     save_metric(section, sun_value)
-
+    update_section_value(sun_value)
