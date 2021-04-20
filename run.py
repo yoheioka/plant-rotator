@@ -4,6 +4,8 @@ import time
 from influxdb import InfluxDBClient
 
 
+THRESH = 265
+
 def rotate():
     GPIO.setmode(GPIO.BOARD)
     control_pins = [7,11,13,15]
@@ -39,10 +41,10 @@ def read_metric():
     # print('Visible %03d UV %.2f IR %03d' % (SI1145.ReadVisible , SI1145.ReadUV/100 , SI1145.ReadIR))
 
 
-def save_metric(section, value):
+def save_metric(metric, value):
     client = InfluxDBClient('localhost', 8086, 'pi', 'password', 'plant')
     point = {
-        'measurement': 'sunlight-%s' % section,
+        'measurement': metric,
         'fields': {
             'value': value
         }
@@ -53,7 +55,7 @@ def save_metric(section, value):
 def update_section_value(sun_value, section):
     with open('/home/pi/plant-rotator/section_sunlight.txt', 'r') as f:
         starting_value = int(f.readline())
-    new_value = starting_value + max(sun_value - 265, 0)
+    new_value = starting_value + max(sun_value - THRESH, 0)
     if new_value > 100000:
         next_section = (section + 1) % 4
         with open('/home/pi/plant-rotator/current_section.txt', 'w') as f:
@@ -66,5 +68,6 @@ def update_section_value(sun_value, section):
 if __name__  == '__main__':
     section = get_section()
     sun_value = read_metric()
-    save_metric(section, sun_value)
+    save_metric('sunlight-%s' % section, sun_value)
+    save_metric('sunlight-delta-%s' % section, max(sun_value - THRESH, 0))
     update_section_value(sun_value, section)
