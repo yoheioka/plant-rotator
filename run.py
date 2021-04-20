@@ -5,6 +5,8 @@ from influxdb import InfluxDBClient
 
 
 THRESH = 265
+ROTATE_THRESH = 50000
+
 
 def rotate():
     GPIO.setmode(GPIO.BOARD)
@@ -56,7 +58,7 @@ def update_section_value(sun_value, section):
     with open('/home/pi/plant-rotator/section_sunlight.txt', 'r') as f:
         starting_value = int(f.readline())
     new_value = starting_value + max(sun_value - THRESH, 0)
-    if new_value > 100000:
+    if new_value > ROTATE_THRESH:
         next_section = (section + 1) % 4
         with open('/home/pi/plant-rotator/current_section.txt', 'w') as f:
             f.write('%s\n' % next_section)
