@@ -63,6 +63,7 @@ def update_section_value(sun_value, section):
         with open('/home/pi/plant-rotator/current_section.txt', 'w') as f:
             f.write('%s\n' % next_section)
         new_value = 0
+        rotate()
     with open('/home/pi/plant-rotator/section_sunlight.txt', 'w') as f:
         f.write('%s\n' % new_value)
 
