@@ -9,6 +9,7 @@ ROTATE_THRESH = 50000
 
 
 def rotate():
+    print('start rotate')
     GPIO.setmode(GPIO.BOARD)
     control_pins = [7,11,13,15]
     for pin in control_pins:
@@ -30,6 +31,7 @@ def rotate():
                 GPIO.output(control_pins[pin], halfstep_seq[halfstep][pin])
             time.sleep(0.002)
     GPIO.cleanup()
+    print('end rotate')
 
 
 def get_section():
