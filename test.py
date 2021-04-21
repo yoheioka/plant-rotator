@@ -1,5 +1,11 @@
-import RPi.GPIO as GPIO
-import time
+import seeed_si114x
+
+
+def read_metric():
+    SI1145 = seeed_si114x.grove_si114x()
+    print(SI1145.ReadVisible)
+    return SI1145.ReadVisible
+
 
 def rotate():
     GPIO.setmode(GPIO.BOARD)
@@ -25,14 +31,6 @@ def rotate():
     GPIO.cleanup()
 
 
-def update_section():
-    with open('/home/pi/plant-rotator/current_section.txt', 'r') as f:
-        num = int(f.readline())
-        next = (num + 1) % 4
-    with open('/home/pi/plant-rotator/current_section.txt', 'w') as f:
-        f.write('%s\n' % next)
-
-
 if __name__ == '__main__':
     rotate()
-    update_section()
+    read_metric()
