@@ -1,9 +1,9 @@
-import seeed_si114x
 import RPi.GPIO as GPIO
 import time
 
 
 def read_metric():
+    import seeed_si114x
     SI1145 = seeed_si114x.grove_si114x()
     print(SI1145.ReadVisible)
     return SI1145.ReadVisible
