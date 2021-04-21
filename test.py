@@ -1,4 +1,6 @@
 import seeed_si114x
+import RPi.GPIO as GPIO
+import time
 
 
 def read_metric():
