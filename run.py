@@ -42,6 +42,7 @@ def get_section():
         with open('/home/pi/plant-rotator/current_section.txt', 'w') as f:
             f.write('%s\n' % section)
         section_value = 0
+        rotate()
     return section, section_value
 
 
