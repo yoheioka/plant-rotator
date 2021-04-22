@@ -47,6 +47,7 @@ def get_section():
 
 
 def read_metric():
+    # the rotation has to happen before this import
     import seeed_si114x
     SI1145 = seeed_si114x.grove_si114x()
     return SI1145.ReadVisible
