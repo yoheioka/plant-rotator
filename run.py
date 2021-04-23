@@ -64,7 +64,7 @@ def save_metric(metric, value):
     client.write_points([point])
 
 
-def update_section_value(new_value, section):
+def update_section_value(new_value):
     with open('/home/pi/plant-rotator/section_sunlight.txt', 'w') as f:
         f.write('%s\n' % new_value)
 
@@ -77,4 +77,4 @@ if __name__  == '__main__':
     save_metric('sunlight-%s' % section, sun_value)
     save_metric('sunlight-delta-%s' % section, delta)
 
-    update_section_value(section_value + delta, section)
+    update_section_value(section_value + delta)
