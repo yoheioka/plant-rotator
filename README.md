@@ -1,2 +1,2 @@
-# Install 
-https://simonhearne.com/2020/pi-influx-grafana/
+# Code for automated plant rotator
+https://www.instructables.com/Plant-Rotator/
